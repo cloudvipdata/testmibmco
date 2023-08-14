@@ -1,7 +1,20 @@
+name: cicd_ci
 
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo Write your commands here
-      
-      echo Hello world
+trigger:
+  branches:
+    include:
+      - master
+
+stages:
+- stage: CI_Checks
+  jobs:
+  - job:
+    displayName: yamllint_checks
+    pool:
+      vmImage: 'EnvAgentTest'
+    steps:
+    - script: |
+        python -m pip install --upgrade pip
+        pip install yamllint
+        yamllint -d "{extends: relaxed, rules: {line-length: {max: 200}, new-line-at-end-of-file: disable, new-lines: disable}}" .
+      displayName: 'YAML Lint Checks'
