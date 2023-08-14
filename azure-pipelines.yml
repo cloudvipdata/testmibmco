@@ -11,7 +11,7 @@ stages:
   - job:
     displayName: yamllint_checks
     pool:
-      vmImage: 'EnvAgentTest'
+      vmImage: 'agentlinuxAZ'
     steps:
     - script: |
         python -m pip install --upgrade pip
